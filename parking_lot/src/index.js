@@ -10,7 +10,7 @@ class ParkingLot {
 		console.log(`Created parking lot with ${this.availableSpace.length} slots`);
 	}
 
-  // Car parking method
+	// Car parking method
 	park(res) {
 		const [label, plateNumber] = res.split(' ');
 		let emptySlot = this._checkForAvailbleSpace();
@@ -27,5 +27,22 @@ class ParkingLot {
 
 		this.availableSpace[emptySlot] = currentParkingCar;
 		console.log(`Allocated slot number: ${emptySlot + 1}`);
+	}
+
+	//Helper method to check for avaliable slot
+	_checkForAvailbleSpace() {
+		for (let index = 0; index < this.availableSpace.length; index++) {
+			if (this.availableSpace[index] === undefined) {
+				return index;
+			}
+		}
+		return null;
+	}
+
+	//method for generating ticket
+	generateTicket(doc) {
+		console.log(
+			`Slot No. ${doc.slot_No + 1}  Registration No. ${doc.plateNumber} \n`
+		);
 	}
 }
