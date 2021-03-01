@@ -82,4 +82,14 @@ class ParkingLot {
 			return (price += 10);
 		}
 	}
+
+	//method to show parking lot status
+	status() {
+		const arr = [...this.availableSpace];
+		console.log(`Slot No.   Registration No.`);
+		for (let i = 0; i < arr.length; i++) {
+			if (arr[i] !== undefined)
+				console.log(`${arr[i].slot_No + 1}          ${arr[i].plateNumber}`);
+		}
+	}
 }
