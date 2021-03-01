@@ -45,4 +45,41 @@ class ParkingLot {
 			`Slot No. ${doc.slot_No + 1}  Registration No. ${doc.plateNumber} \n`
 		);
 	}
+
+	//car leaving method
+	leaveParkingLot(res) {
+		const [label, plateNumber, time] = res.split(' ');
+		const doc = {};
+		for (let x = 0; x < this.availableSpace.length; x++) {
+			if (
+				this.availableSpace[x] !== undefined &&
+				this.availableSpace[x].plateNumber === plateNumber
+			) {
+				console.log(
+					`Registration number ${
+						this.availableSpace[x].plateNumber
+					} with Slot Number ${
+						this.availableSpace[x].slot_No + 1
+					} is free with Charge ${this._timeCharge(Number(time))} \n`
+				);
+
+				this.availableSpace[x] = undefined;
+				break;
+			}
+		}
+	}
+
+	//helper method for calculating price
+	_timeCharge(time) {
+		let price = 0;
+		if (time > 2) {
+			price = 10;
+			for (let x = 0; x < time - 2; x++) {
+				price += 10;
+			}
+			return price;
+		} else {
+			return (price += 10);
+		}
+	}
 }
