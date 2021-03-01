@@ -1,8 +1,5 @@
 const fs = require('fs');
 
-//read text file from the root folder
-const readStream = fs.createReadStream(process.argv[2], { encoding: 'utf8' });
-
 //creating parking lot class
 class ParkingLot {
 	constructor(size) {
@@ -93,3 +90,24 @@ class ParkingLot {
 		}
 	}
 }
+
+
+//read text file from the root folder
+const readStream = fs.createReadStream(process.argv[2], { encoding: 'utf8' });
+
+//reading value of the text file in chunks
+readStream.on('data', (value) => {
+	let result = value.split('\n');
+	let parkingLot;
+	result.forEach((res) => {
+		if (res.charAt(0) === 'c') {
+			parkingLot = new ParkingLot(6);
+		} else if (res.charAt(0) === 'p') {
+			parkingLot.park(res);
+		} else if (res.charAt(0) === 'l') {
+			parkingLot.leaveParkingLot(res);
+		} else if (res.charAt(0) === 's') {
+			parkingLot.status();
+		}
+	});
+});
