@@ -1,0 +1,4 @@
+--tag type:aruba 
+--require spec_helper 
+--format documentation 
+--color
