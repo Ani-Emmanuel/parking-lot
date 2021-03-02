@@ -46,7 +46,7 @@ class ParkingLot {
 	//car leaving method
 	leaveParkingLot(res) {
 		const [label, plateNumber, time] = res.split(' ');
-		const doc = {};
+		const doc = [];
 		for (let x = 0; x < this.availableSpace.length; x++) {
 			if (
 				this.availableSpace[x] !== undefined &&
@@ -63,6 +63,15 @@ class ParkingLot {
 				this.availableSpace[x] = undefined;
 				break;
 			}
+
+			//builds array of plate numbers
+			if (this.availableSpace[x] !== undefined)
+				doc.push(this.availableSpace[x].plateNumber);
+		}
+
+		//checks if the plateNumber is in the array of plate numbers
+		if (!doc.includes(plateNumber)) {
+			console.log(`Registration number ${plateNumber} not found`);
 		}
 	}
 
@@ -90,7 +99,6 @@ class ParkingLot {
 		}
 	}
 }
-
 
 //read text file from the root folder
 const readStream = fs.createReadStream(process.argv[2], { encoding: 'utf8' });
