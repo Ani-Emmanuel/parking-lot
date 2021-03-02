@@ -47,10 +47,12 @@ class ParkingLot {
 	leaveParkingLot(res) {
 		const [label, plateNumber, time] = res.split(' ');
 		const doc = [];
+		let removed_car = null;
 		for (let x = 0; x < this.availableSpace.length; x++) {
+			let current_parked_car = this.availableSpace[x];
 			if (
-				this.availableSpace[x] !== undefined &&
-				this.availableSpace[x].plateNumber === plateNumber
+				current_parked_car !== undefined &&
+				current_parked_car.plateNumber === plateNumber
 			) {
 				console.log(
 					`Registration number ${
@@ -59,20 +61,12 @@ class ParkingLot {
 						this.availableSpace[x].slot_No + 1
 					} is free with Charge ${this._timeCharge(Number(time))} \n`
 				);
-
+				removed_car = current_parked_car;
 				this.availableSpace[x] = undefined;
-				break;
+				return;
 			}
-
-			//builds array of plate numbers
-			if (this.availableSpace[x] !== undefined)
-				doc.push(this.availableSpace[x].plateNumber);
 		}
-
-		//checks if the plateNumber is in the array of plate numbers
-		if (!doc.includes(plateNumber)) {
-			console.log(`Registration number ${plateNumber} not found`);
-		}
+		console.log(`Registration number ${plateNumber} not found`);
 	}
 
 	//helper method for calculating price
